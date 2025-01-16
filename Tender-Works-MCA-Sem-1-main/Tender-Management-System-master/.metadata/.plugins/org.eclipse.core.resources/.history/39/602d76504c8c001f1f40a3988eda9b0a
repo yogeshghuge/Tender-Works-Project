@@ -1,0 +1,76 @@
+package com.hit.utility;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+public class DBUtil {
+    private static Connection conn = null;
+    
+    private DBUtil() {
+        // Private constructor to prevent instantiation
+    }
+
+    public static Connection provideConnection() {
+        ResourceBundle rb = null;
+        try {
+            rb = ResourceBundle.getBundle("dbdetails");
+        } catch (Exception e) {
+            e.printStackTrace();  // Handle the case where the bundle might not be found
+        }
+
+        if (rb != null) {
+            String cs = rb.getString("ConnectionString");
+            String username = rb.getString("username");
+            String password = rb.getString("password");
+            String dbDriver = rb.getString("driverName");
+
+            try {
+                if (conn == null || conn.isClosed()) {
+                    try {
+                        Class.forName(dbDriver);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    conn = DriverManager.getConnection(cs, username, password);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return conn;
+    }
+
+    public static void closeConnection(PreparedStatement ps) {
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void closeConnection(ResultSet rs) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void closeConnection(Connection con) {
+        if (con != null) {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}

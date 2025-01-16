@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+D:\Project\Tender-Works-MCA-Sem-1-main\Tender-Works-MCA-Sem-1-main\Tender-Management-System-master\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+460916449.index
+2360433603.index
+1125021538.index
+2448402903.index
+1624727739.index
+1554642008.index
